@@ -14,7 +14,9 @@ export const ModalPortal = ({
   const { refOutsideClick } = useOutsideClick(setIsOpen)
 
   if (!isOpen) return null
-  portalDiv.innerHTML = ''
+  if (portalDiv?.innerHTML) {
+    portalDiv.innerHTML = ''
+  }
   return portalDiv
     ? ReactDOM.createPortal(
         <div>

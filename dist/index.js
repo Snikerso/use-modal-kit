@@ -26771,8 +26771,8 @@ if (process.env.NODE_ENV === 'production') {
 function useOutsideClick(onOutsideClick) {
   var refOutsideClick = React.useRef(null);
 
-  function handleClickOutside() {
-    if (refOutsideClick.current) {
+  function handleClickOutside(event) {
+    if (refOutsideClick.current && !refOutsideClick.current.contains(event.target)) {
       onOutsideClick();
     }
   }
@@ -26799,7 +26799,11 @@ var ModalPortal = function ModalPortal(_ref) {
       refOutsideClick = _useOutsideClick.refOutsideClick;
 
   if (!isOpen) return null;
-  portalDiv.innerHTML = '';
+
+  if (portalDiv !== null && portalDiv !== void 0 && portalDiv.innerHTML) {
+    portalDiv.innerHTML = '';
+  }
+
   return portalDiv ? reactDom.createPortal(React__default.createElement("div", null, React__default.createElement("div", null, Overlay), React__default.createElement("div", {
     ref: refOutsideClick
   }, Main)), portalDiv) : null;
