@@ -12,16 +12,22 @@ npm install --save use-modal-kit
 
 ## Usage
 
+
+### If you want to create own modal with an initialize button
+
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'use-modal-kit'
-import 'use-modal-kit/dist/index.css'
+import {useModalKit} from 'use-modal-kit'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+export const CustomModal = () => {
+  const { setIsOpen,Modal } = useModal()
+  return (
+  <>
+    <button onClick={()=>setIsOpen(true)}>Open</button>
+    <Modal Main={<div><button onClick={()=>setIsOpen(false)}>X</button></div> } Overlay={<div></div>}/>
+  </>
+  )
 }
 ```
 
