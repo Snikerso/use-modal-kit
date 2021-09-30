@@ -1,4 +1,4 @@
 /// <reference types="react" />
 export declare function useOutsideClick(onOutsideClick: any): {
-    refOutsideClick: import("react").RefObject<HTMLElement>;
+    refOutsideClick: import("react").MutableRefObject<HTMLDivElement | null>;
 };

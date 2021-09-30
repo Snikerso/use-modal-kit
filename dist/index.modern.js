@@ -26766,7 +26766,7 @@ if (process.env.NODE_ENV === 'production') {
 });
 
 function useOutsideClick(onOutsideClick) {
-  const refOutsideClick = useRef(null);
+  var refOutsideClick = useRef(null);
 
   function handleClickOutside(event) {
     if (refOutsideClick.current && !refOutsideClick.current.contains(event.target)) {
@@ -26774,27 +26774,27 @@ function useOutsideClick(onOutsideClick) {
     }
   }
 
-  useEffect(() => {
+  useEffect(function () {
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
+    return function () {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [refOutsideClick]);
   return {
-    refOutsideClick
+    refOutsideClick: refOutsideClick
   };
 }
 
-const portalDiv = typeof document !== 'undefined' ? document.getElementById('portal') : null;
-const ModalPortal = ({
-  Main,
-  isOpen,
-  setIsOpen,
-  Overlay
-}) => {
-  const {
-    refOutsideClick
-  } = useOutsideClick(setIsOpen);
+var portalDiv = typeof document !== 'undefined' ? document.getElementById('portal') : null;
+var ModalPortal = function ModalPortal(_ref) {
+  var Main = _ref.Main,
+      isOpen = _ref.isOpen,
+      setIsOpen = _ref.setIsOpen,
+      Overlay = _ref.Overlay;
+
+  var _useOutsideClick = useOutsideClick(setIsOpen),
+      refOutsideClick = _useOutsideClick.refOutsideClick;
+
   if (!isOpen) return null;
 
   if (portalDiv !== null && portalDiv !== void 0 && portalDiv.innerHTML) {
@@ -26806,21 +26806,25 @@ const ModalPortal = ({
   }, Main)), portalDiv) : null;
 };
 
-const useModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const Modal = useCallback(({
-    Overlay,
-    Main
-  }) => React.createElement("div", null, React.createElement(ModalPortal, {
+var useModal = function useModal() {
+  var _useState = useState(false),
+      isOpen = _useState[0],
+      setIsOpen = _useState[1];
+
+  var Modal = useCallback(function (_ref) {
+    var Overlay = _ref.Overlay,
+        Main = _ref.Main;
+    return React.createElement("div", null, React.createElement(ModalPortal, {
+      isOpen: isOpen,
+      setIsOpen: setIsOpen,
+      Overlay: Overlay,
+      Main: Main
+    }));
+  }, [isOpen]);
+  return {
     isOpen: isOpen,
     setIsOpen: setIsOpen,
-    Overlay: Overlay,
-    Main: Main
-  })), [isOpen]);
-  return {
-    isOpen,
-    setIsOpen,
-    Modal
+    Modal: Modal
   };
 };
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 export function useOutsideClick(onOutsideClick: any) {
-  const refOutsideClick = useRef<HTMLElement>(null)
+  const refOutsideClick = useRef<HTMLDivElement | null>(null)
   function handleClickOutside(event: any) {
     if (
       refOutsideClick.current &&
